@@ -1,0 +1,11 @@
+---
+- name: Provision Jenkins Agents
+  hosts: jenkins_agents
+  become: true
+  vars_files:
+    - vars.yml
+  roles:
+    - install_python
+    - setup_mysql
+    - schedule_script
+...

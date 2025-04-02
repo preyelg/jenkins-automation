@@ -1,0 +1,7 @@
+---
+- name: Schedule script via cron
+  cron:
+    name: "System Stats Logger"
+    job: "/usr/bin/python3 /home/ec2-user/system_logger.py"
+    minute: "*/5"
+...

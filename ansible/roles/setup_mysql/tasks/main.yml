@@ -1,31 +1,43 @@
 ---
 - name: Install MySQL server
-  apt:
+  yum:
     name: mysql-server
     state: present
 
 - name: Start MySQL service
   service:
-    name: mysql
+    name: mysqld
     state: started
     enabled: yes
 
-- name: Create database
+- name: Create MySQL database
   mysql_db:
-    name: system_stats
+    name: syslogs
     state: present
     login_user: root
-    login_password: "{{ mysql_root_password }}"
+    login_password: rootpassword
 
-- name: Create logs table
-  mysql_query:
+- name: Create MySQL user
+  mysql_user:
+    name: devops
+    password: password
+    priv: "syslogs.*:ALL"
+    host: g2
+    state: present
     login_user: root
-    login_password: "{{ mysql_root_password }}"
-    query: |
-      CREATE TABLE IF NOT EXISTS logs (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        cpu_usage FLOAT,
-        memory_usage FLOAT
-      );
+    login_password: rootpassword
+
+- name: Copy SQL script to EC2 instance
+  copy:
+    src: setup_db.sql
+    dest: /tmp/setup_db.sql
+
+- name: Execute SQL script to create tables
+  mysql_db:
+    name: syslogs
+    state: import
+    target: /tmp/setup_db.sql
+    login_user: root
+    login_password: rootpassword
+
 ...

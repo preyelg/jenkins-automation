@@ -16,4 +16,12 @@
     - vars.yml
   roles:
     - setup_mysql
+
+- name: Create MySQL database
+  mysql_db:
+    name: system
+    state: present
+    login_user: root
+    login_password: team13@3
+  become: yes
 ...

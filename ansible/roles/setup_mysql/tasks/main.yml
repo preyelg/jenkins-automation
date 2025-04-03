@@ -1,14 +1,17 @@
 ---
-- name: Install MySQL server
-  yum:
+- name: Install MySQL server (Ubuntu)
+  apt:
     name: mysql-server
     state: present
+    update_cache: yes
+  when: ansible_distribution == "Ubuntu"
 
-- name: Start MySQL service
+- name: Start MySQL service (Ubuntu)
   service:
-    name: mysqld
+    name: mysql
     state: started
     enabled: yes
+  when: ansible_distribution == "Ubuntu"
 
 - name: Create MySQL database
   mysql_db:
@@ -22,12 +25,12 @@
     name: devops
     password: password
     priv: "syslogs.*:ALL"
-    host: g2
+    host: '%'
     state: present
     login_user: root
     login_password: rootpassword
 
-- name: Copy SQL script to EC2 instance
+- name: Copy SQL script to MySQL server
   copy:
     src: setup_db.sql
     dest: /tmp/setup_db.sql
@@ -39,5 +42,4 @@
     target: /tmp/setup_db.sql
     login_user: root
     login_password: rootpassword
-
 ...

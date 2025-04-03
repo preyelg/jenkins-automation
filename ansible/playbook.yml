@@ -6,6 +6,7 @@
     - vars.yml
   roles:
     - install_python
+    - install_cron  # Ensure cron is installed before scheduling the script
     - schedule_script  # Moved setup_mysql out of here!
 
 - name: Setup MySQL Server
@@ -15,5 +16,4 @@
     - vars.yml
   roles:
     - setup_mysql
-
 ...

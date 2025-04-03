@@ -1,4 +1,10 @@
 ---
+- name: Ensure cron is installed
+  package:
+    name: cron
+    state: present
+  become: true
+  
 - name: Schedule script via cron
   cron:
     name: "System Stats Logger"

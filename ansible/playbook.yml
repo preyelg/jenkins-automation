@@ -1,3 +1,4 @@
+---
 - name: Provision Jenkins Agents
   hosts: jenkins_agents  # Runs only on the Jenkins agents
   become: true

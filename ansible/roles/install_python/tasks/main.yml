@@ -4,6 +4,23 @@
     name: python3
     state: present
 
+- name: Install Python 3
+  package:
+    name: python3
+    state: present
+
+- name: Install pip3
+  package:
+    name: python3-pip
+    state: present
+
+- name: Install required Python packages
+  pip:
+    name:
+      - psutil
+      - mysql-connector-python
+    executable: pip3
+
 - name: Install required Python packages
   pip:
     name:

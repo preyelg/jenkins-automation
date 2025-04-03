@@ -23,7 +23,7 @@
   tasks:
     - name: Create MySQL database
       mysql_db:
-        name: your_database_name
+        name: system_stats
         state: present
         login_user: root
         login_password: YourSecurePassword

@@ -1,17 +1,17 @@
 ---
-- name: Install MySQL server (Ubuntu)
+- name: Install MySQL server and required Python packages (Ubuntu)
   apt:
-    name: mysql-server
+    name:
+      - mysql-server
+      - python3-pymysql
     state: present
     update_cache: yes
-  when: ansible_distribution == "Ubuntu"
 
 - name: Start MySQL service (Ubuntu)
   service:
     name: mysql
     state: started
     enabled: yes
-  when: ansible_distribution == "Ubuntu"
 
 - name: Create MySQL database
   mysql_db:

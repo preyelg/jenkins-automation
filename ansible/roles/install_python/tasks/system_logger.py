@@ -1,4 +1,3 @@
----
 import psutil
 import mysql.connector
 import datetime
@@ -22,4 +21,3 @@ db.commit()
 cursor.close()
 db.close()
 print(f"Logged at {timestamp} | CPU: {cpu}%, MEM: {mem}%")
-...

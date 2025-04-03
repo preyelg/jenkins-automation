@@ -1,11 +1,18 @@
----
 - name: Provision Jenkins Agents
-  hosts: g1
+  hosts: jenkins_agents  # Runs only on the Jenkins agents
   become: true
   vars_files:
     - vars.yml
   roles:
     - install_python
+    - schedule_script  # Moved setup_mysql out of here!
+
+- name: Setup MySQL Server
+  hosts: g2  # Runs only on the MySQL server
+  become: true
+  vars_files:
+    - vars.yml
+  roles:
     - setup_mysql
-    - schedule_script
+
 ...

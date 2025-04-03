@@ -13,10 +13,9 @@
       - mysql-connector-python
     executable: pip3
 
-- name: Copy Python script to Jenkins Master
+- name: Copy Python script to Jenkins Master or Agents
   copy:
     src: ../files/system_logger.py
-    dest: /home/ubuntu/system_logger.py  # Adjusted path
+    dest: "{{ '/home/ubuntu/system_logger.py' if ansible_facts['distribution'] == 'Ubuntu' else '/home/ec2-user/system_logger.py' }}"
     mode: '0755'
-
 ...

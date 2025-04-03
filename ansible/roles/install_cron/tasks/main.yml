@@ -1,7 +1,16 @@
 ---
-- name: Install cron package
-  package:
-    name: cron
+- name: Ensure cron package is installed on Amazon Linux
+  yum:
+    name: cronie
     state: present
+  when: ansible_distribution == "Amazon"
+  become: true
+
+- name: Start and enable cron service
+  service:
+    name: crond
+    state: started
+    enabled: yes
+  when: ansible_distribution == "Amazon"
   become: true
 ...

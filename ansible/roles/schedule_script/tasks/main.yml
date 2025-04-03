@@ -1,13 +1,15 @@
 ---
-- name: Ensure cron is installed
-  package:
-    name: cron
+- name: Ensure cronie is installed on Amazon Linux
+  yum:
+    name: cronie
     state: present
+  when: ansible_distribution == "Amazon"
   become: true
-  
+
 - name: Schedule script via cron
   cron:
     name: "System Stats Logger"
     job: "/usr/bin/python3 /home/ec2-user/system_logger.py"
     minute: "*/5"
+  become: true
 ...

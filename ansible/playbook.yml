@@ -10,7 +10,7 @@
     - schedule_script  # Moved setup_mysql out of here!
 
 - name: Setup MySQL Server
-  hosts: g2  # Runs only on the MySQL server
+  hosts: n4  # Runs only on the MySQL server
   become: true
   vars_files:
     - vars.yml

@@ -1,0 +1,7 @@
+---
+- name: Install cron package
+  package:
+    name: cron
+    state: present
+  become: true
+...
